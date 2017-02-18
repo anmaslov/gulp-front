@@ -1,4 +1,4 @@
-// icon
+// // icon
 // (function(document){
 // 	function ready(fn) {
 // 		if (document.readyState !== 'loading'){
@@ -37,97 +37,104 @@
 // 		request = null;
 // 	}
 
-
-
 // 	ready(function(){
 // 		var element = document.querySelector('meta[name="icons-sprite:url"]');
-// 		var url = element && element.getAttribute("content");
+// 		var url = element && element.getAttribute('content');
+// 		var useNodes = document.getElementsByTagName('use');
+
+// 		var sprite = '';
 
 // 		request(url, spriteSuccessHandler, spriteErrorHandler);
 
 // 		function spriteSuccessHandler (res) {
-// 			console.log(res);
+// 			// console.log(res);
+
+// 			sprite = res;
+//
 // 		}
 
 // 		function spriteErrorHandler (res) {
-// 			console.log(res)
+// 			console.error(res)
 // 		}
+
 // 	});
 
 // })(document);
 
 
+(function(document, useNodes, timer, spritesArr) {
 
+	function replaceIcon(svgElement, iconContent) {
+		if (iconContent) {
+			var viewBox = iconContent.getAttribute("viewBox");
+			var fragment = document.createDocumentFragment();
+			var symbolElement = iconContent.cloneNode(true);
 
-
-(function(doc, opt_nodes, domReady, opt_attributes) {
-	/**
-	 * @param {Element} svg
-	 * @param {Element} e
-	 * @return {undefined}
-	 */
-	function draw(svg, e) {
-		if (e) {
-			var styles = e.getAttribute("viewBox");
-			/** @type {DocumentFragment} */
-			var s = doc.createDocumentFragment();
-			var endNode = e.cloneNode(true);
-			if (styles) {
-				svg.setAttribute("viewBox", styles);
+			if (viewBox) {
+				svgElement.setAttribute("viewBox", viewBox);
 			}
-			for (;endNode.childNodes.length;) {
-				s.appendChild(endNode.childNodes[0]);
+
+			for (;symbolElement.childNodes.length;) {
+				fragment.appendChild(symbolElement.childNodes[0]);
 			}
-			svg.appendChild(s);
+
+			svgElement.appendChild(fragment);
 		}
 	}
-	/**
-	 * @return {undefined}
-	 */
+
 	function ready() {
-		var o = this;
-		/** @type {Element} */
-		var node = doc.createElement("x");
-		var s = o.s;
-		node.innerHTML = o.responseText;
-		/**
-		 * @return {undefined}
-		 */
-		o.onload = function() {
-			s.splice(0).map(function(attrList) {
-				draw(attrList[0], node.querySelector("#" + attrList[1].replace(/(\W)/g, "\\$1")));
+		var that = this;
+		var spriteContainer = document.createElement("x");
+		var iconsArr = that.iconsArr;
+		spriteContainer.innerHTML = that.responseText;
+
+		that.onload = function() {
+			iconsArr.splice(0).map(function(item) {
+
+				var svgElement = item[0];
+				var iconId = item[1];
+				var iconContent = spriteContainer.querySelector("#" + iconId.replace(/(\W)/g, "\\$1"));
+
+				replaceIcon(svgElement, iconContent);
 			});
 		};
-		o.onload();
+
+		that.onload();
 	}
-	/**
-	 * @return {undefined}
-	 */
+
+
 	function load() {
-		console.log('load')
 		var node;
-		for (;node = opt_nodes[0];) {
-			var p = node.parentNode;
-			var file = node.getAttribute("xlink:href").split("#")[1];
-			/** @type {string} */
+
+		for (;node = useNodes[0];) {
+			var svgIconElement = node.parentNode;
+			var iconId = node.getAttribute("xlink:href").split("#")[1];
+
 			var element = document.querySelector('meta[name="icons-sprite:url"]');
 			var url = element && element.getAttribute("content");
-			p.removeChild(node);
-			var self = opt_attributes[url] = opt_attributes[url] || new XMLHttpRequest;
-			if (!self.s) {
-				/** @type {Array} */
-				self.s = [];
-				self.open("GET", url);
-				/** @type {function (): undefined} */
-				self.onload = ready;
-				self.send();
+
+			svgIconElement.removeChild(node);
+			var request = spritesArr[url] = spritesArr[url] || new XMLHttpRequest;
+
+			if (!request.iconsArr) {
+
+				request.iconsArr = [];
+				request.open("GET", url);
+
+				request.onload = ready;
+				request.send();
 			}
-			self.s.push([p, file]);
-			if (self.readyState === 4) {
-				self.onload();
+
+			request.iconsArr.push([svgIconElement, iconId]);
+
+			if (request.readyState === 4) {
+				request.onload();
 			}
 		}
-		domReady(load);
+
+		timer(load);
 	}
+
 	load();
+
 })(document, document.getElementsByTagName("use"), window.requestAnimationFrame || window.setTimeout, {});
