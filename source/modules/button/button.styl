@@ -1,35 +1,31 @@
 //-//////////////////////////////////////////////////////////
 //- Mixins
 //-//////////////////////////////////////////////////////////
-button-style(color, color-hover, background, background-hover, border, border-hover)
+button-style(color, background, border = false, color-hover = false, background-hover = false, border-hover = false)
+	$fc = color
+	$fcH = color-hover || color
+	$bg = background
+	$bgH = background-hover || (background - 10%)
+	$b = border
+	$bH = border-hover || border ? (border - 25%) : false
+
 	&
 	&:visited
-		color color
-		background-color background
-		if border
-			border-color border
+		color $fc
+		background-color $bg
+		if $b
+			border-color $b
 
 	&:focus
 	&:hover
 	&:active
-		if color-hover
-			color color-hover
-		else
-			color color
-
-		if background-hover
-			background-color background-hover
-		else
-			background-color background - 10%
-
-		if border-hover
-			border-color border-hover
-		else
-			if border
-				border-color border - 25%
+		color $fcH
+		background-color $bgH
+		if $bH
+			border-color $bH
 
 	&:active
-		background-image none
+		// background-image none
 
 	&.button
 		&_disabled
@@ -38,16 +34,11 @@ button-style(color, color-hover, background, background-hover, border, border-ho
 			&:hover
 			&:focus
 			&:active
-				color color
-				background-color background
-				if border
-					border-color border
+				color $fc
+				background-color $bg
+				if $b
+					border-color $b
 
-button-size(padding, font-size, line-height)
-	padding padding
-	font-size font-size
-	if line-height
-		line-height line-height
 
 
 //-//////////////////////////////////////////////////////////
@@ -69,9 +60,6 @@ button-size(padding, font-size, line-height)
 	white-space nowrap
 	line-height normal
 	-webkit-user-drag none
-	-webkit-user-select none
-	-moz-user-select none
-	-ms-user-select none
 	user-select none
 	box-sizing border-box
 	text-decoration none
@@ -99,7 +87,7 @@ button-size(padding, font-size, line-height)
 
 	&:hover
 	&:focus
-		color #333333
+		// color inherit
 		text-decoration none
 
 	&:active
@@ -110,6 +98,7 @@ button-size(padding, font-size, line-height)
 
 	&_disabled
 	&[disabled]
+		pointer-events none
 		&
 		&:hover
 		&:focus
@@ -117,9 +106,6 @@ button-size(padding, font-size, line-height)
 			opacity 0.65
 			box-shadow none
 			outline none
-
-	a&_disabled
-		pointer-events none
 
 //- Block button
 .button_block
@@ -139,40 +125,29 @@ button-size(padding, font-size, line-height)
 //- Button sizes
 //-//////////////////////////////////////////////////////////
 
+.button_size_extra-large
+.button_size_large
 .button_size_normal
-	button-size(
-		padding: 12px 22px,
-		font-size: 16px,
-		line-height: 1.4
-	)
+.button_size_small
+.button_size_extra-small
+	padding em(10px) em(16px)
+
 
 .button_size_extra-large
-	button-size(
-		padding: 20px 26px,
-		font-size: 20px,
-		line-height: 1.4
-	)
+	font-size 150%
 
 .button_size_large
-	button-size(
-		padding: 16px 24px,
-		font-size: 18px,
-		line-height: 1.4
-	)
+	font-size 125%
+
+.button_size_normal
+	font-size 100%
 
 .button_size_small
-	button-size(
-		padding: 8px 16px,
-		font-size: 14px,
-		line-height: 1.4
-	)
+	font-size 80%
 
 .button_size_extra-small
-	button-size(
-		padding: 4px 10px,
-		font-size: 12px,
-		line-height: 1.4
-	)
+	font-size 70%
+
 
 
 //-//////////////////////////////////////////////////////////
@@ -181,111 +156,81 @@ button-size(padding, font-size, line-height)
 
 // Rounded
 .button_style_rounded
-	border-radius 2px
+	border-radius em(2px)
 
 // Pill
 .button_style_pill
-	border-radius 100px
+	border-radius 50em
 
 // Solid
 .button_style_solid.button_color_grey
 	button-style(
 		color: #666,
-		color-hover: false,
 		background: #ebebeb,
-		background-hover: #f5f5f5,
-		border: false,
-		border-hover: false
+		background-hover: #f5f5f5
 	)
 
 .button_style_solid.button_color_black
 	button-style(
 		color: #fff,
-		color-hover: false,
 		background: #383838,
-		background-hover: #595959,
-		border: false,
-		border-hover: false
+		background-hover: #595959
 	)
 
 .button_style_solid.button_color_blue
 	button-style(
 		color: #fff,
-		color-hover: false,
 		background: #3498da,
-		background-hover: #2ea9fa,
-		border: false,
-		border-hover: false
+		background-hover: #2ea9fa
 	)
 
 .button_style_solid.button_color_dark-blue
 	button-style(
 		color: #fff,
-		color-hover: false,
 		background: #34495e,
-		background-hover: #235688,
-		border: false,
-		border-hover: false
+		background-hover: #235688
 	)
 
 .button_style_solid.button_color_green
 	button-style(
 		color: #fff,
-		color-hover: false,
 		background: #27ae60,
-		background-hover: #20cf6a,
-		border: false,
-		border-hover: false
+		background-hover: #20cf6a
 	)
 
 .button_style_solid.button_color_yellow
 	button-style(
 		color: #fff,
-		color-hover: false,
 		background: #f1c40f,
-		background-hover: #ffd21b,
-		border: false,
-		border-hover: false
+		background-hover: #ffd21b
 	)
 
 .button_style_solid.button_color_orange
 	button-style(
 		color: #fff,
-		color-hover: false,
 		background: #e57e22,
-		background-hover: #ff8a22,
-		border: false,
-		border-hover: false
+		background-hover: #ff8a22
 	)
 
 .button_style_solid.button_color_red
 	button-style(
 		color: #fff,
-		color-hover: false,
 		background: #e74c3c,
-		background-hover: #ff503e,
-		border: false,
-		border-hover: false
+		background-hover: #ff503e
 	)
 
 .button_style_solid.button_color_aqua
 	button-style(
 		color: #fff,
-		color-hover: false,
 		background: #1abcaf,
-		background-hover: #1bd9ca,
-		border: false,
-		border-hover: false
+		background-hover: #1bd9ca
 	)
 
 .button_style_solid.button_color_purple
 	button-style(
 		color: #fff,
-		color-hover: false,
 		background: #9b59b6,
-		background-hover: #b34bde,
-		border: false,
-		border-hover: false
+		background-hover: #b34bde
 	)
 
 // Ghost

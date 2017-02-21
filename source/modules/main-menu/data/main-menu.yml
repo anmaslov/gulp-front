@@ -87,50 +87,51 @@
         icon: "add"
         submenu:
           -
-            title: "Images helpers"
-            url: "#images-helpers"
-          -
-            title: "Breadcrumbs"
-            url: "#breadcrumbs"
-          -
-            title: "Pagination"
-            url: "#pagination"
+            title: "Accordion"
+            url: "#accordion"
           -
             title: "Badges"
             url: "#badges"
           -
-            title: "Progress Bar"
-            url: "#progress-bar"
-          -
-            title: "Responsive video"
-            url: "#embed"
-          -
-            title: "Social icons"
-            url: "#social-icons"
-          -
-            title: "Tabs"
-            url: "#tabs"
-          -
-            title: "Modal windows"
-            url: "#modals"
-          -
-            title: "Accordion"
-            url: "#accordion"
+            title: "Breadcrumbs"
+            url: "#breadcrumbs"
           -
             title: "Dropdown"
             url: "#dropdown"
           -
+            title: "Responsive video"
+            url: "#embed"
+          -
+            title: "Flags Icons"
+            url: "#flags-icons"
+          -
+            title: "Images helpers"
+            url: "#images-helpers"
+          -
+            title: "Modal windows"
+            url: "#modals"
+          -
+            title: "Pagination"
+            url: "#pagination"
+          -
+            title: "Progress Bar"
+            url: "#progress-bar"
+          -
+            title: "Social icons"
+            url: "#social-icons"
+          -
             title: "Spoiler"
             url: "#spoiler"
-          -
-            title: "Tooltips"
-            url: "#tooltips"
           -
             title: "Svg Icons"
             url: "#svg-icons"
           -
-            title: "Flags Icons"
-            url: "#flags-icons"
+            title: "Tabs"
+            url: "#tabs"
+          -
+            title: "Tooltips"
+            url: "#tooltips"
+
 
       -
         title: "Grid"

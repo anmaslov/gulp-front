@@ -8,8 +8,9 @@ $base-quiet-color                           = #ccc
 $base-loud-color                            = #000
 
 $base-font-family                           = notosans
-$base-font-size                             = 1.4em
-$base-line-height                           = $base-font-size
+$base-font-size                             = 16px
+$base-font-size_em                          = unit($base-font-size * 0.1, em)
+$base-line-height                           = $base-font-size_em
 
 $fixed-font-family                          = consolas
 
@@ -68,7 +69,7 @@ $form-color-border_focus                    = #3498da
 $form-color-border_invalid                  = #f64c61
 
 // Font
-$form-font-size                             = 13px
+$form-font-size                             = 14px
 
 // Padding
 $form-padding_horizontal                    = 18px

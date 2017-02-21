@@ -6,43 +6,51 @@
 
 	&__trigger
 		position relative
-		color #333
-		font-size 13px
-		padding 10px 50px 10px 20px
 		background-color #fff
-		transition 150ms all ease-in-out 0s
-		border 1px solid #cdcdcd
-		border-radius 3px
+		transition 125ms all ease-in-out
 		cursor pointer
 		width 100%
 		box-sizing border-box
 		text-align left
-
-		&:hover
-			background-color #f9f9f9
+		border none
+		background transparent
 
 		&::after
-			transition 150ms all ease-in-out 0s
+			transition 125ms all ease-in-out
 			position absolute
-			right 20px
 			top 50%
-			margin-top -5px
-			content ''
-			display block
-			size 6px
 			border-width 0 1px 1px 0
-			border-color #535353
 			border-style solid
 			transform rotate(45deg)
 			transform-origin 75% 75%
 
 	&__pannel
 		display none
-		padding 20px 10px
 
-	&__item_active &__trigger
-		background-color #f9f9f9
-
-	&__item_active &__trigger
+	&__item_open &__trigger
 		&::after
 			transform rotate(225deg)
+
+	// Default style
+	&_style_default &__trigger
+		color #333
+		padding em(10px) em(50px) em(10px) em(20px)
+		background-color #fff
+		border 1px solid #cdcdcd
+		border-radius em(2px)
+
+		&:hover
+			background-color #f9f9f9
+
+		&::after
+			content ''
+			right em(20px)
+			margin-top em(-5px)
+			size em(6px)
+			border-color #535353
+
+	&_style_default &__pannel
+		padding em(20px) em(10px)
+
+	&_style_default &__item_active &__trigger
+		background-color #f9f9f9

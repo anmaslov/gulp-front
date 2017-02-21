@@ -1,60 +1,49 @@
 // Mixins
-alert-style(color)
-	border 1px solid color + 50%
+alert-color(color)
+	color color - 20%
+	border-color color + 50%
 	background color + 90%
-	.alert
-		&__title
-		&__close
-		&__body
-			color color - 20%
-
-		&__close
-			color color
-			&:hover
-				color color - 40%
 
 .alert
-	padding 10px 15px
-	border-radius 2px
 	position relative
-	margin-bottom $base-line-height
 
 	&__title
-		font-weight bold
-		font-size 16px
-		padding-bottom 8px
+		margin 0
 
 	&__body
-		font-size 14px
+		//
 
 	&__close
-		cursor pointer
 		position absolute
-		background-color transparent
-		border none
-		line-height 1px
-		padding 3px
-		right 5px
-		top 5px
-		svg
-			size 10px
+		size 2em
+		right 0
+		top 0
+
+	&_style_rounded
+		border-radius em(2px)
+
+	&_style_default
+		padding em(10px) em(15px)
+		margin-bottom $base-line-height
+		border-width 1px
+		border-style solid
+
+	&_style_default &__title
+		font-weight bold
+		padding 0 2em 0.85em 0
+
+	&_style_default &__body
+		font-size em(14px)
 
 
+.alert_style_default.alert_color_red
+	alert-color(color: #e74c3c)
 
+.alert_style_default.alert_color_green
+	alert-color(color: #187818)
 
+.alert_style_default.alert_color_blue
+	alert-color(color: #00529c)
 
-.alert_type_error
-.alert_color_red
-	alert-style(color: #e74c3c)
-
-.alert_type_success
-.alert_color_green
-	alert-style(color: #187818)
-
-.alert_type_info
-.alert_style_blue
-	alert-style(color: #00529c)
-
-.alert_type_message
-.alert_color_grey
-	alert-style(color: #000)
+.alert_style_default.alert_color_grey
+	alert-color(color: #000)

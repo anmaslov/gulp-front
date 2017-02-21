@@ -1,74 +1,75 @@
 .dropdown
-	font-size 13px
 	position relative
 	display inline-block
 
 	&__trigger
-		color #333
-		border 1px solid #cdcdcd
-		border-radius 3px
-		background-color #fff
-		font-size 13px
-		line-height 40px
-		padding 4px 37px 4px 18px
 		cursor pointer
 		user-select none
-		transition 125ms background-color ease-in-out
-		&:hover
-			background-color #F9F9F9
 
 	&__caret
-		content ''
 		display block
 		position absolute
-		size 6px
 		border-width 0 1px 1px 0
 		border-style solid
 		transform rotate(45deg)
 		transform-origin 70% 70%
-		right 18px
-		top 50%
-		margin-top -4px
-		transition 150ms all ease-in-out 0s
+		transition 125ms all ease-in-out
 
 	&__menu
 		min-width 100%
-		width 200px
-		max-width 300px
 		position absolute
 		left 0
 		top 100%
-		margin-top -20px
 		z-index 100
 		overflow hidden
 		opacity 0
 		visibility hidden
 		transition 125ms all ease-in-out
 		text-align left
-		border-radius 3px
-		background #fff
-		box-shadow 0 0 7px rgba(0, 0, 0, 0.13)
-		max-height 170px
 		overflow-y auto
 		-webkit-overflow-scrolling touch
-		ul
-			margin 0
-			padding 0
 
 	&_open &__menu
 		opacity 1
 		visibility visible
 		z-index 100
-		margin-top 2px
-
 
 	&_open &__caret
 		transform rotate(225deg)
 
-	&_drop_down &__list
-		top 100%
-		margin-top -20px
-
 	&_menu_right &__menu
 		left auto
 		right 0
+
+	&_style_default
+		& ^[0]__trigger
+			color #333
+			border 1px solid #cdcdcd
+			border-radius em(2px)
+			background-color #fff
+			line-height em(40px)
+			padding em(4px) em(37px) em(4px) em(18px)
+			transition 125ms background-color ease-in-out
+			&:hover
+				background-color #F9F9F9
+
+		& ^[0]__caret
+			size em(6px)
+			right em(18px)
+			top 50%
+			margin-top em(-4px)
+
+		& ^[0]__menu
+			width em(200px)
+			max-width em(300px)
+			border-radius em(2px)
+			background #fff
+			box-shadow 0 0 em(7px) rgba(0, 0, 0, 0.13)
+			max-height em(170px)
+			overflow-y auto
+			-webkit-overflow-scrolling touch
+			margin-top em(-20px)
+			will-change margin-top, visibility, opacity
+
+		&^[0]_open ^[0]__menu
+			margin-top em(2px)

@@ -13,8 +13,8 @@
 
 
 svgSize($icon)
-	width $icon[0]
-	height $icon[1]
+	width em($icon[0])
+	height em($icon[1])
 
 
 // Default icons sizes
@@ -23,6 +23,6 @@ svgSize($icon)
 	// https://github.com/zoxon/gulp-front/issues/22
 	<% _.each(icons, function (icon) { %>
 	&_<%= icon.className %>
-		width <%= icon.width %>
-		height <%= icon.height %>
+		width em(<%= icon.width %>)
+		height em(<%= icon.height %>)
 	<% }); %>

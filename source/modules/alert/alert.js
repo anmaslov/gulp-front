@@ -1,5 +1,5 @@
 // alert
-(function() {
+(function($) {
 
 	var $alerts = $('.alert');
 
@@ -15,4 +15,4 @@
 		});
 	}
 
-})();
+})(jQuery);

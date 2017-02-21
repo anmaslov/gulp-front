@@ -4,31 +4,19 @@
 .clearfix
 	m-cf()
 
-
-.content-wrapper
-	img[align="left"]
-	img[style*="float: left"]
-	img[style*="float:left"]
-		margin 5px 15px 0px 0px
-
-	img[align="right"]
-	img[style*="float: right"]
-	img[style*="float:right"]
-		margin 5px 0px 0px 15px
-
 .align-image-center
 	text-align center
 
 .align-image-left
 	float left
-	margin 5px 15px 0px 0px
+	margin em(5px) em(15px) 0 0
 
 .align-image-right
 	float right
-	margin 5px 0px 0px 15px
+	margin em(5px) 0 0 em(15px)
 
 .image-captioned
-	margin-bottom 20px
+	margin-bottom em(20px)
 	+below(375px)
 		margin-left 0
 		margin-right 0
@@ -39,7 +27,6 @@
 
 	figcaption
 		font-style oblique
-		font-size 1em
 		color #454545
 
 

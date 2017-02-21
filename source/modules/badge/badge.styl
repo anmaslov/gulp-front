@@ -2,11 +2,9 @@
 	display inline-block
 	position relative
 	vertical-align baseline
-	line-height 1
 	text-decoration none
 	text-transform none
 	white-space nowrap
-	padding 5px 8px
 
 	// colors
 	&_color_grey
@@ -51,24 +49,30 @@
 
 	// styles
 	&_style_rounded
-		border-radius 3px
+		border-radius em(3px)
 
 	&_style_circle
-		border-radius 1.45em
+		border-radius 50em
 
-	// sizes
 	&_size_extra-large
-		font-size 20px
-		padding 8px 13px
+	&_size_large
+	&_size_normal
+	&_size_small
+	&_size_extra-small
+		padding 0 em(8px)
+
+
+	&_size_extra-large
+		font-size 150%
 
 	&_size_large
-		font-size 18px
-		padding 6px 10px
+		font-size 125%
+
+	&_size_normal
+		font-size 100%
 
 	&_size_small
-		font-size 12px
-		padding 4px 7px
+		font-size 80%
 
 	&_size_extra-small
-		font-size 10px
-		padding 3px 5px
+		font-size 70%
