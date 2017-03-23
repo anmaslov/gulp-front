@@ -1,12 +1,18 @@
 'use strict';
 
-svg4everybody();
+var $ = require('jquery');
 
-$(function() {
-	FastClick.attach(document.body);
-});
-
-$('.table').basictable({ baseClass: 'table' });
+// Helpers
+// require('./plugins/helpers/jquery.isset.js');
 
 // Modules
-//= require source/modules/**/!(_)*.js
+var cache = {};
+
+function importAll (r) {
+	r.keys().forEach(key => cache[key] = r(key));
+}
+
+importAll(require.context('../../modules/', true, /^[^\_]*\.js/));
+
+
+

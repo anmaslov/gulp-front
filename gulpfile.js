@@ -17,6 +17,14 @@ var autoprefixer = require('autoprefixer');
 var postcssSorting = require('postcss-sorting');
 var perfectionist = require('perfectionist');
 var postcssSortingConfig = getJsonData('.postcss-sorting.json');
+var webpackStream = require('webpack-stream');
+var webpack = require('webpack');
+var parseArgs = require('minimist');
+var process = require('process');
+
+var env = parseArgs(process.argv.slice(2));
+var nodeEnv = (env.production || env.prod) ? 'production' : 'development';
+var isProd = nodeEnv === 'production';
 
 
 // Read json and return object
@@ -234,6 +242,84 @@ var options = {
 		}),
 		postcssSorting(postcssSortingConfig)
 	]
+};
+
+
+var getWebpackConfig = function() {
+
+	var plugins = [
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'vendor',
+			minChunks: Infinity,
+			filename: 'vendor.js'
+		}),
+		new webpack.EnvironmentPlugin({
+			NODE_ENV: nodeEnv
+		}),
+		new webpack.NamedModulesPlugin(),
+		new webpack.ProvidePlugin({
+			$: 'jquery',
+			jQuery: 'jquery',
+			'window.jQuery': 'jquery'
+		})
+	];
+
+	if (isProd) {
+		plugins.push(
+			new webpack.LoaderOptionsPlugin({
+				minimize: true,
+				debug: false
+			}),
+			new webpack.optimize.UglifyJsPlugin({
+				compress: {
+					warnings: false,
+					screw_ie8: true,
+					conditionals: true,
+					unused: true,
+					comparisons: true,
+					sequences: true,
+					dead_code: true,
+					evaluate: true,
+					if_return: true,
+					join_vars: true
+				},
+				output: {
+					comments: false
+				}
+			})
+		);
+	}
+	else {
+		plugins.push(
+			new webpack.HotModuleReplacementPlugin()
+		);
+	}
+
+
+	return {
+		devtool: isProd ? 'source-map' : 'eval',
+		entry: {
+			vendor: [
+				'babel-polyfill',
+				__dirname + '/source/static/scripts/vendor.js'
+			],
+			main: __dirname + '/source/static/scripts/main.js'
+		},
+		output: {
+			filename: '[name].js',
+			path: __dirname + '/dest/assets/scripts'
+		},
+		module: {
+			rules: [
+				{
+					test: /\.js$/,
+					exclude: /(node_modules|bower_components)/,
+					use: [ 'babel-loader' ]
+				}
+			]
+		},
+		plugins: plugins
+	};
 
 };
 
@@ -308,7 +394,7 @@ gulp.task('build:assets', function() {
 gulp.task('build:scripts', function() {
 	return gulp.src([ '*.js', '!_*.js' ], { cwd: 'source/static/scripts' })
 		.pipe($.plumber(options.plumber))
-		.pipe($.include(options.include))
+		.pipe(webpackStream(getWebpackConfig(), webpack))
 		.pipe(gulp.dest('dest/assets/javascripts'));
 });
 

@@ -1,5 +1,5 @@
 // Isset
-(function($, window, document, undefined) {
+(function($) {
 	'use strict';
 
 	$.fn.isset = function() {
@@ -7,4 +7,4 @@
 		return typeof $this !== 'undefined' && $this.length > 0;
 	};
 
-})(jQuery, window, document);
+})(jQuery);
